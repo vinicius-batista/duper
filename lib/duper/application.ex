@@ -4,13 +4,15 @@ defmodule Duper.Application do
   @moduledoc false
 
   use Application
+  alias Duper.{Results, PathFinder, WorkerSupervisor, Gatherer}
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      Duper.Results,
-      {Duper.PathFinder, "."},
-      Duper.WorkerSupervisor
+      Results,
+      {PathFinder, "."},
+      WorkerSupervisor,
+      {Gatherer, 1}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
