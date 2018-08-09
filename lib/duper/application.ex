@@ -9,12 +9,13 @@ defmodule Duper.Application do
     # List all child processes to be supervised
     children = [
       Duper.Results,
-      {Duper.PathFinder, "."}
+      {Duper.PathFinder, "."},
+      Duper.WorkerSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Duper.Supervisor]
+    opts = [strategy: :one_for_all, name: Duper.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
